@@ -40,8 +40,25 @@ def index():
         tasks = ToDo.query.order_by(ToDo.date_created).all()
         return render_template('index.html', tasks=tasks)
 
-# do the amana task as efficiently as possible this month
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    task_to_delete = ToDo.query.get_or_404(id)
+
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect('/')
+
+    except:
+        return "I am unable to comply with your demand !"
+
+
+@app.route('/update/<int:id>')
+def update(id):
+    pass # for now 
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+

@@ -10,6 +10,12 @@
 
 <div class="content">
 
+    {% if tasks| length < 1 %}
+
+    <h3> Sorry, no tasks available at the moment!!</h3>
+
+    {% else %}
+
     <table>
         
         <tr>
@@ -35,6 +41,8 @@
         <input type="submit" alignment="center" value="Add Task">
     </form>
 </div>
+
+    {% endfor %}
 
 {% endblock %}
 

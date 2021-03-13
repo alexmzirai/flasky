@@ -54,9 +54,19 @@ def delete(id):
         return "I am unable to comply with your demand !"
 
 
-@app.route('/update/<int:id>')
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
-    pass # for now 
+    task = ToDo.query.get_or_404(id)
+    if request.method == 'POST':
+        task.content = request.form['content']   # update the task fetched by id above
+        try:
+            db.session.commit() # just a simple commit
+            return redirect('/')
+
+        except:
+            return "I am unable to update your task, master!"
+    else:
+        return render_template('update.html', task=task)
 
 
 if __name__ == "__main__":
